@@ -1,0 +1,139 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+	width: 100%; height: 99%;
+	font-family: 'Electrolize', sans-serif; 
+	overflow: hidden;
+	/*background: #c8efff;*/
+}
+
+.center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/* My Habits */
+a.btnHabit {
+	background-color: #eee;
+	color: #2f3e46!important;
+	display: block;
+	padding: 8px;
+	margin-bottom: 4px;
+}
+.btnHabit .categoryName {
+	display: block;
+	color: #bbb!important;
+}
+
+a.btnCategory {
+	background-color: #eee;
+	color: #feb040!important;
+	display: block;
+	padding: 8px;
+	margin-bottom: 4px;
+	font-size: 18px;	
+}
+div.divActiveUsers {
+	background-color: #FFFFFF;
+	color: #777;
+	font-size: 13px;
+	width: 100px; 
+	display: block;
+	padding: 3px;
+}
+
+.speech {
+	text-align:center;
+}
+.speech:before
+{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 48%;
+	top: 30px;
+	border: 10px solid;
+	border-top: 8px solid;
+	border-color: #69C7EE transparent transparent transparent;
+}
+
+#pageMyHabitDetails .ui-header.ui-bar-c {
+ height: 72px;
+}
+
+#pageMyHabitDetails .ui-header:before
+{
+	content: ' ';
+	position: absolute;
+	width: 0;
+	height: 0;
+	left: 48%;
+	top: 80px;
+	border: 10px solid;
+	border-top: 8px solid;
+	border-color: #bbb transparent transparent transparent;
+}
+
+.circle {
+    width: 50px;
+    height: 50px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px; 
+}
+#divCircleContainer {
+	position: relative;
+}
+#circle {
+    border: 2px solid #fff;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+}
+
+.pull-right {
+	float: right;	
+}
+
+.ui-footer .pull-right {
+	margin-right: 8px;
+}
+
+#pageMyHabitDetails .ui-header {
+	text-align: center; 
+	padding: 4px;
+}
+
+.ui-footer {
+	padding: 4px;
+}
+
+.day {
+	display:block;
+	width:18px;
+	height:18px;
+	position: absolute;
+	top: -6px;
+	left: 100px;
+}
+#divDidIt.didItToday {
+	background-color: #66CD00;
+	color: #fff;
+}
+#divDidIt {
+	position: absolute;
+	width: 80px;
+	height: 80px;
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px; 
+	background-color: #fff;
+	text-align: center;
+	padding-top; 20px;
+}
+

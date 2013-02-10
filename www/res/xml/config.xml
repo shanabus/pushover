@@ -1,0 +1,5 @@
+<cordova>
+    <plugin name="Notification" value="org.apache.cordova.Notification"/>
+	
+	<access origin="http://grappsmobile.com" />
+</cordova>
