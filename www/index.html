@@ -26,9 +26,79 @@
 			function onDeviceReady()
 			{
 				showAlert();
-				//pushNotification = window.plugins.pushNotification;
+				
+				// https://github.com/phonegap-build/PushPlugin/blob/master/README.md
+				pushNotification = window.plugins.pushNotification;
+				
+				if (device.platform == 'android' || device.platform == 'Android') {
+					pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
+				} else {
+					pushNotification.register(tokenHandler, errorHandler {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+				}
 			}
 			
+			// iOS
+			function onNotificationAPN(event) {
+				if (event.alert) {
+					navigator.notification.alert(event.alert);
+				}
+
+				if (event.sound) {
+					var snd = new Media(event.sound);
+					snd.play();
+				}
+
+				if (event.badge) {
+					pushNotification.setApplicationIconBadgeNumber(successHandler, event.badge);
+				}
+			}
+
+
+			// Android
+			function onNotificationGCM(e) {
+				switch( e.event )
+				{
+					case 'registered':
+						if ( e.regid.length > 0 )
+						{
+							// Your GCM push server needs to know the regID before it can push to this device
+							// here is where you might want to send it the regID for later use.
+							alert('registration id = e.regid);
+						}
+					break;
+
+					case 'message':
+						// this is the actual push notification. its format depends on the data model
+						// of the intermediary push server which must also be reflected in GCMIntentService.java
+						alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+					break;
+
+					case 'error':
+						alert('GCM error = e.msg);
+					break;
+
+					default:
+						alert('An unknown GCM event has occurred);
+					break;
+				}
+			}
+			
+			// result contains any message sent from the plugin call
+			function successHandler (result) {
+				alert('result = '+result)
+			}
+			// result contains any error description text returned from the plugin call
+			function errorHandler (error) {
+				alert('error = '+error)
+			}
+			
+			// ios only
+			function tokenHandler (result) {
+				// Your iOS push server needs to know the token before it can push to this device
+				// here is where you might want to send it the token for later use.
+				alert('device token = '+result)
+			}
+
 			// alert dialog dismissed
 			function alertDismissed() {
 				navigator.notification.vibrate(2000);
