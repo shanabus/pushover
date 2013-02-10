@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.grappsmobile.habitudetest"
+        id        = "com.grappsmobile.pushover"
         version   = "2.0.0">
-    <name>Habitude Test</name>
+    <name>Push Over</name>
 
     <description>
-        Test app for Habitude
+        Test app for Push Notifications
     </description>
 
     <author href="http://phonegap.com" email="shanabus@gmail.com">

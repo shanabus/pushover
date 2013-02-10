@@ -28,13 +28,13 @@
 				showAlert();
 				
 				// https://github.com/phonegap-build/PushPlugin/blob/master/README.md
-				pushNotification = window.plugins.pushNotification;
+				//pushNotification = window.plugins.pushNotification;
 				
-				if (device.platform == 'android' || device.platform == 'Android') {
-					pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
-				} else {
-					pushNotification.register(tokenHandler, errorHandler {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-				}
+				//if (device.platform == 'android' || device.platform == 'Android') {
+				//	pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
+				//} else {
+				//	pushNotification.register(tokenHandler, errorHandler {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+				//}
 			}
 			
 			// iOS
