@@ -1,62 +1,31 @@
 <!doctype html>
 <html>
 	<head>
-    	<title>Your Habitude</title>
+    	<title>Push Over</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="css/themes/habitude_3.min.css" />
         <link rel="stylesheet" href="css/jquery.mobile.structure.1.2.min.css" /> 
         <link rel="stylesheet" href="css/style.css" />
         
-		<!--
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script> 
-        <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script> 
-        -->
         <script src="js/jquery.1.8.2.min.js" type="text/javascript"></script>
 		<script src="js/jquery.mobile.1.2.min.js"></script>
         <script src="js/cookies.js"></script>
         <script type="text/javascript" charset="utf-8" src="cordova.js"></script>
-		<!--<script src="PushNotification.js"></script> -->
+		<script src="PushNotification.js"></script>
         
-        <script>		
-			var API_BASE_URL = "http://grappsmobile.com/habitude/api/v1/";	
-			var USER_ID = getUserIdCookie();
-			var NEW_CATEGORY_ID = getNewCategoryIdCookie();
-			var NEW_HABIT_ID = 0;
-			var CURRENT_HABIT_ID = getCurrentHabitIdCookie();
-			var DEBUG = false;
-			
+        <script>								
 			var pushNotification;		
 			
-			$(document).ready(function() {			
+			$(document).ready(function() {							
 				
-				if (USER_ID > 0) {
-					if (DEBUG) console.log("Users was found eating cookies");
-					
-					USER_ID = parseInt(getUserIdCookie());
-
-					//if (CURRENT_HABIT_ID > 0)
-//					{
-//						$.mobile.changePage("#pageMyHabitDetails", { transition: "slideup"});
-//					} else {
-						$.mobile.changePage("#pageMyHabits", { transition: "slideup"});
-					//}					
-				}
-				
-				$('div').live('pagechange', function(event, ui){
-				  var page = $(event.target);
-				
-				  if(page.attr('data-cache') == 'never'){
-					page.remove();
-				  };				  
-				});
 			});
 			
 			document.addEventListener("deviceready", onDeviceReady, true);
 			
 			function onDeviceReady()
 			{
-				//showAlert('Phonegap ready');
+				showAlert();
 				//pushNotification = window.plugins.pushNotification;
 			}
 			
@@ -69,17 +38,11 @@
 			//
 			function showAlert() {
 				navigator.notification.alert(
-					'You are the winner!',  // message
+					'Phone gap is here!',  // message
 					alertDismissed,         // callback
-					'Game Over',            // title
+					'good for you',            // title
 					'Done'                  // buttonName
 				);
-			}
-						
-			function logOut() {
-				USER_ID = 0;
-				setUserIdCookie(0);
-				$.mobile.changePage("#pageLogin", { transition: "slideup"});
 			}
 			
 		  //var _gaq = _gaq || [];
@@ -95,546 +58,28 @@
 		</script>
     </head>
     <body>
-    	<!-- LOG IN PAGE -->
+    	
     	<div data-role="page" id="pageLogin" data-theme="a">
         	<script type="text/javascript">					
 				var badPasswordCount = 0;	
 				
-				$("#pageLogin").bind('pageinit', function() {					
-				
-					if (DEBUG) console.log("pageLogin pageinit");
-										
-					$("#btnLogin").off('click').on('click', function() {
-						var password = $("#txtPassword").val();
-						var userName = $("#txtName").val();
-						
-						if (password !== "" && userName !== "") {						
-							$.ajax({
-							  type: "POST",
-							  url: API_BASE_URL + 'users.php?method=login',
-							  data: {
-								  userName: userName, 
-								  password: password
-								  },
-							  dataType: "json",
-							  success: function(data) {
-
-								if (data.Success) {
-									USER_ID = parseInt(data.Items[0].userId);
-									setUserIdCookie(USER_ID);			
-									$.mobile.changePage("#pageMyHabits", { transition: "slideup"});							
-									//_gaq.push(['_setCustomVar', 1, 'Game Code', gameCode, 3 ]);
-									//_gaq.push(['_setCustomVar', 2, 'Player Name', name, 3 ]);
-									//_gaq.push(['_trackEvent', 'Game', 'Game Joined', GAME_ID]);
-								} else {
-									badCreds();
-								}
-							  }
-							});						
-						}
-					});
+				$("#pageLogin").bind('pageinit', function() {									
+					
 				});
-				
-				function badCreds() {
-					badPasswordCount++;
-					navigator.notification.vibrate(1000);
-					if (badPasswordCount >= 3) {
-						navigator.notification.alert(
-							'Password Max',  // message
-							alertDismissed,         // callback
-							'Too many tries',            // title
-							'Exit'                  // buttonName
-						);
-					}
-				}
 			</script>
         
-			<!-- <div data-role="header">
-				<h1>Habitude</h1>
-			</div>/header -->
+			<div data-role="header">
+				<h1>Push OverHabitude</h1>
+			</div>
 
 			<div data-role="content">	
-				<div class="center" style="width: 250px;">
-		            <img src="images/Logo2.png" align="center" class="center" style="width: 250px;" />
-				</div>
                 <div data-role="fieldcontain">
-                    <input type="text" id="txtName" name="userName" placeholder="Username" />
-                    <br />
-                    <input type="password" id="txtPassword" name="password" placeholder="Password" />				
-                    <br />	
-                    <button id="btnLogin" data-role="submit" data-mini="true">Log In</button>   
-                    <br />
-	                <a href="#pageCreateAccount" data-theme="b" data-role="button" data-mini="true">Create Account</a>
+                    Push Over sends push notifications to Phonegap app (like this one)
                 </div>
                 
 			</div><!-- /content -->
 
 		</div><!-- /page -->    	       
 		
-        <!-- CREATE ACCOUNT PAGE -->    	           
-		<div data-role="page" id="pageCreateAccount" data-theme="a">
-			<script type="text/javascript">						
-                $("#pageCreateAccount").bind('pageinit', function() {
-                    if (DEBUG) console.log("pageCreateAccount pageinit");
-                    
-					$("#btnCreate").off('click').on('click', function() {
-						var userName = $("#txtNewName").val();
-						var email = $("#txtNewEmail").val();
-						var password = $("#txtNewPassword").val();
-						
-						if (password !== "" && userName !== "" && email !== "") {						
-							$.ajax({
-							  type: "POST",
-							  url: API_BASE_URL + 'users.php?method=create',
-							  data: {
-								  userName: userName, 
-								  email: email,
-								  password: password
-								  },
-							  dataType: "json",
-							  success: function(data) {
-
-								if (data.Success) {
-									USER_ID = parseInt(data.userId);
-									setUserIdCookie(USER_ID);			
-									$.mobile.changePage("#pageMyHabits", { transition: "slideup"});							
-									//_gaq.push(['_setCustomVar', 1, 'Game Code', gameCode, 3 ]);
-									//_gaq.push(['_setCustomVar', 2, 'Player Name', name, 3 ]);
-									//_gaq.push(['_trackEvent', 'Game', 'Game Joined', GAME_ID]);
-								} else {
-									alert("there was a problem joining this game");
-								}
-							  }
-							});						
-						}
-					});
-                });
-            </script>
-        
-            <div data-role="header">
-                <div class="center" style="width: 253px;">
-                    <img src="images/Habitude_title.png" align="center" class="center" style="width: 253px;" />
-                </div>
-            </div><!-- /header -->
-            
-            <div data-role="content">	
-                
-                <div data-role="fieldcontain">
-                    <input type="text" id="txtNewName" name="userName" placeholder="Username" />
-                </div>
-                <div data-role="fieldcontain">
-                    <input type="text" id="txtNewEmail" name="email" placeholder="Email" />				
-                </div>
-                <div data-role="fieldcontain">
-                    <input type="password" id="txtNewPassword" name="password" placeholder="Password" />				
-                </div>
-                <br />
-                <button id="btnCreate" data-role="submit" data-mini="true">Create Now</button>   
-                <br />
-                <a data-rel="back" data-theme="b" data-role="button" data-mini="true">Cancel</a>  
-            </div><!-- /content -->
-            
-            <!-- <div data-role="footer" data-position="fixed">	                                        
-            </div> /footer -->
-        
-        </div><!-- /page -->
-
-		<!-- MY HABITS PAGE -->
-		<div data-role="page" id="pageMyHabits" data-theme="c" data-cache="never">
-			<script type="text/javascript">						
-                $("#pageMyHabits").bind('pageshow', function() {
-                    if (DEBUG) console.log("pageMyHabits pageinit");
-                    if (DEBUG) console.log("user id = " + USER_ID);
-					
-					// reset current habit id
-					CURRENT_HABIT_ID = 0;
-					setCurrentHabitIdCookie(CURRENT_HABIT_ID);
-					
-                    if (USER_ID > 0) {						
-					
-						$("#divMyHabits").html("");
-						
-                        $.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'users.php?method=user_habits',
-                          data: {
-                              userId: USER_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        
-                            var habitsHtml ='';
-                            for(var a = 0; a < data.Items.length; a++) {
-                                //habitsHtml += '<a class="btnHabit btn" data-role="button" data-theme="c" data-habit-id="' + data.Items[a].habitId + '">';
-                                //habitsHtml +=  data.Items[a].habitName + ' <br /><span class="categoryName">' + data.Items[a].categoryName + '</span></a>';
-                                habitsHtml += '<a class="btnHabit" data-habit-id="' + data.Items[a].habitId + '"><div class="habitName">';
-                                habitsHtml +=  data.Items[a].habitName + '</div><div class="categoryName">' + data.Items[a].categoryName + '</div></a>';
-                            }
-                            $("#divMyHabits").append(habitsHtml);
-                            //$("#divMyHabits").trigger( "create" );
-                            $("#pageMyHabits .btnHabit").off('click').on('click', function(e) {
-								CURRENT_HABIT_ID = $(e.currentTarget).data("habit-id");
-								setCurrentHabitIdCookie(CURRENT_HABIT_ID);
-								$.mobile.changePage("#pageMyHabitDetails", { transition: "slideup"});
-							});
-                          }
-                        });						
-                    }
-					else
-					{
-						$.mobile.changePage("#pageLogin", { transition: "slideup"});
-					}
-					
-					$(".btnLogOut").off('click').on('click', logOut);
-                });
-            </script>
-        
-            <div data-role="header" data-theme="a">
-                <div class="center" style="width: 253px;">
-                    <img src="images/Habitude_title.png" align="center" class="center" style="width: 253px;" />
-                </div>
-            </div><!-- /header -->
-        
-            <div data-role="content">
-            	<h3>Welcome back!</h3>	
-                <div id="divMyHabits"></div>
-            </div><!-- /content -->
-        
-            <div data-role="footer" data-position="fixed" data-theme="a">        
-            	<a href="#pageChooseCategory" data-transition="slideup" data-role="button" data-icon="plus">New Habit</a>
-                <a href="#" data-role="button" data-icon="alert" class="btnLogOut pull-right">Log Out</a>
-            </div><!-- /footer -->
-        
-        </div><!-- /page -->
-
-		<!-- MY HABIT DETAILS PAGE -->
-        <div data-role="page" id="pageMyHabitDetails" data-theme="a" data-cache="never">
-			<script type="text/javascript">	
-                $("#pageMyHabitDetails").bind('pageshow', function() {
-                    if (DEBUG) console.log("pageMyHabitDetails pageinit");
-                    if (DEBUG) console.log("current habit id = " + CURRENT_HABIT_ID);
-										
-                    if (USER_ID > 0 && CURRENT_HABIT_ID > 0) {						
-                        $.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'habits.php?method=index',
-                          data: {
-                              userId: USER_ID,
-							  habitId: CURRENT_HABIT_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        
-                            if (DEBUG) console.debug(data);
-							if (data.Success) {
-								$("#divHabitTitle").html("<p>&quot;" + data.Items[0].name + "&quot;</p>");
-							}
-                          }
-                        });						
-						
-						$.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'habits.php?method=user_habit_log',
-                          data: {
-                              userId: USER_ID,
-							  habitId: CURRENT_HABIT_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        
-                            if (DEBUG) console.debug(data);
-							if (data.Success) {
-								var steps = 20;
-								var centerX = 91;
-								var centerY = 91;
-								var radius = cWidth / 2 + 1;
-								
-								plotCircle(steps, centerX, centerY, radius, data.Items);								
-							}
-                          }
-                        });	
-                    }
-					
-					$(".btnDeleteHabit").off('click').on('click', function() {
-						$.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'habits.php?method=delete_user_habit',
-                          data: {
-                              userId: USER_ID,
-							  habitId: CURRENT_HABIT_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        
-                            if (DEBUG) console.debug(data);
-							if (data.Success) {
-								$.mobile.changePage("#pageMyHabits", { transition: "slideup"});
-							}
-                          }
-                        });	
-					});
-									
-					
-					var cWidth = $("#circle").width();
-				
-					var btnWidth = $("#divDidIt").width();
-					$("#divDidIt").css({ left: (btnWidth * .75) + "px", top: (btnWidth * .75) + "px"});
-					
-					$("#divDidIt").off('click').one('click', function() {
-						 if (USER_ID > 0 && CURRENT_HABIT_ID > 0) {						
-							$.ajax({
-							  type: "POST",
-							  url: API_BASE_URL + 'habits.php?method=record_user_habit',
-							  data: {
-								  userId: USER_ID,
-								  habitId: CURRENT_HABIT_ID,
-								  dateCreated: getDateCreated()
-								  },
-							  dataType: "json",
-							  success: function(data) {
-			
-								if (DEBUG) console.debug(data);
-								if (data.Success) {
-									$("#divDidIt").html("<br />You<br />did it!");
-									$("#divDidIt").addClass("didItToday");
-								}
-							  }
-							});						
-						}
-					});
-                });          
-				
-				function getDateCreated() {
-					var date = new Date();
-					date = date.getUTCFullYear() + '-' + ('00' + (date.getUTCMonth()+1)).slice(-2) + '-' + date.getUTCDate() + ' ' + ('00' + date.getUTCHours()).slice(-2) + ':' + ('00' + date.getUTCMinutes()).slice(-2) + ':' + ('00' + date.getUTCSeconds()).slice(-2);
-
-					return date;
-				}
-				
-				function getDayOfYear() {
-					var today = new Date();
-					var first = new Date(today.getFullYear(), 0, 1);
-					var theDay = Math.round(((today - first) / 1000 / 60 / 60 / 24) + .5, 0);
-					return theDay;			
-				}
-				
-				function plotCircle(steps, centerX, centerY, radius, logItems) {
-					$(".day").remove();
-					var xValues = new Array();
-					var yValues = new Array();
-					var startingDay = logItems[0] != undefined? logItems[0].dayOfYear : 0;
-					var currentDay = startingDay;
-					
-					for (var i = 1; i <= steps; i++) {
-						xValues[i] = (centerX + radius * ( Math.cos(2 * Math.PI * (i + (.75 * steps)) / steps) ) );												
-						yValues[i] = (centerY + radius * ( Math.sin(2 * Math.PI * (i + (.75 * steps)) / steps) ) );
-												
-						$("#divCircleContainer").append('<span class="ui-icon ui-icon-check ui-icon-shadow day" id="day' + i + '">&nbsp;</span>');
-						
-						$("#day" + i).css({ left: xValues[i] + "px", top: yValues[i] + "px"});
-						
-						if (DEBUG) console.log("checked for day " + currentDay);
-						
-						if (logItems[i-1] != undefined && logItems[i-1].dayOfYear == currentDay) 
-						{
-							if (DEBUG) console.log("found day " + currentDay);
-							$("#day" + i).css("background-color", "#66CD00");														
-							if (currentDay == (getDayOfYear() - 1)) {
-								$("#divDidIt").off('click');
-								$("#divDidIt").html("<br />You<br />did it!");
-								$("#divDidIt").addClass("didItToday");
-							}
-						}
-						else
-						{
-							$("#day" + i).css("background-image", "none");
-						}
-						currentDay++;
-					}
-					$("#divCircleContainer").fadeIn();
-				}      
-            </script>
-        
-            <div data-role="header" data-theme="c">
-                <div id="divHabitTitle"></div>
-            </div><!-- /header -->
-            
-            <div data-role="content">	
-            	<div class="center" style="width: 210px;margin-top: 20%;">
-                    <div id="divCircleContainer" style="display:none;">
-                    	<div id="divDidIt"><br />Press<br /><span class="ui-icon ui-icon-check ui-icon-shadow" style="display:block;width:18px;height:18px;position: absolute;	left: 30px; top: 44px;">&nbsp;</span></div>
-                    </div>                    
-                    <div id="circle">&nbsp;</div>
-                </div>
-            </div><!-- /content -->
-        
-            <div data-role="footer" data-position="fixed" data-theme="c">
-                <a data-rel="back" data-theme="b" data-role="button" data-mini="true" data-icon="arrow-l">Back</a>
-                <a class="pull-right btnDeleteHabit" data-theme="a" data-role="button" data-mini="true" data-icon="delete">Delete</a>
-            </div><!-- /footer -->
-        
-        </div><!-- /page -->
-
-		<!-- CHOOSE CATEGORY PAGE -->
-		<div data-role="page" id="pageChooseCategory" data-theme="c" data-cache="never">
-			<script type="text/javascript">	
-                $("#pageChooseCategory").bind('pageshow', function() {
-                    if (DEBUG) console.log("pageChooseCategory pageinit");
-                    
-                    if (USER_ID > 0) {					
-						$("#divCategories").html("");	
-                        $.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'categories.php?method=index',
-                          data: {
-                              userId: USER_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        
-                            var categoryHtml ='';
-                            for(var a = 0; a < data.Items.length; a++) {
-                                //habitsHtml += '<a class="btnHabit btn" data-role="button" data-theme="c" data-habit-id="' + data.Items[a].habitId + '">';
-                                //habitsHtml +=  data.Items[a].habitName + ' <br /><span class="categoryName">' + data.Items[a].categoryName + '</span></a>';
-                                categoryHtml += '<a class="btnCategory" data-category-id="' + data.Items[a].categoryId + '"><div class="">';
-                                categoryHtml +=  data.Items[a].name + '</div></a>';
-                            }
-                            $("#divCategories").append(categoryHtml);
-                            //$("#divMyHabits").trigger( "create" );
-                            $(".btnCategory").on('click', categorySelected);
-                          }
-                        });						
-                    }
-                });
-                
-                function categorySelected(e) {			
-                    NEW_CATEGORY_ID = $(e.currentTarget).data("category-id");
-        			setNewCategoryIdCookie(NEW_CATEGORY_ID);
-                    $.mobile.changePage("#pageChooseHabit", { transition: "slideup"});	
-                }
-            </script>
-        
-            <div data-role="header" data-theme="a">
-                <div class="center" style="width: 253px;">
-                    <img src="images/Habitude_title.png" align="center" class="center" style="width: 253px;" />
-                </div>
-            </div><!-- /header -->
-            
-            <div data-role="content">	
-                <div data-swatch="b" class="ui-li ui-li-divider ui-btn ui-bar-b ui-corner-top ui-corner-bottom ui-btn-up-undefined speech">Choose a Category</div>
-                <div id="divCategories" data-role="fieldcontain"></div>              
-                                              
-            </div><!-- /content -->
-        
-            <div data-role="footer" data-position="fixed" data-theme="c">
-                <a data-rel="back" data-theme="b" data-role="button" data-mini="true" data-icon="arrow-l">Cancel</a>
-            </div><!-- /footer -->
-        
-        </div><!-- /page -->
-
-		<!-- CHOOSE HABIT PAGE -->
-		<div data-role="page" id="pageChooseHabit" data-theme="c" data-cache="never">
-			<script type="text/javascript">						
-                $("#pageChooseHabit").bind('pageshow', function() {
-                    if (DEBUG) console.log("pageChooseHabit pageinit");
-                    
-                    if (USER_ID > 0 && NEW_CATEGORY_ID > 0) 
-					{			
-						$("#divHabits").html("");			
-                        $.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'habits.php?method=index',
-                          data: {
-                              userId: USER_ID,
-                              categoryId: NEW_CATEGORY_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        
-                            var habitHtml ='';
-                            for(var a = 0; a < data.Items.length; a++) {
-                                //habitsHtml += '<a class="btnHabit btn" data-role="button" data-theme="c" data-habit-id="' + data.Items[a].habitId + '">';
-                                //habitsHtml +=  data.Items[a].habitName + ' <br /><span class="categoryName">' + data.Items[a].categoryName + '</span></a>';
-                                habitHtml += '<a class="btnHabit" style="text-align:center;" data-habit-id="' + data.Items[a].habitId + '"><div>&quot;';
-                                habitHtml +=  data.Items[a].name + '&quot;</div><div class="center divActiveUsers">1,200 users</div></a>';
-                            }
-                            $("#divHabits").append(habitHtml);
-                            //$("#divMyHabits").trigger( "create" );
-                            $("#pageChooseHabit .btnHabit").off('click').on('click', habitSelected);
-                          }
-                        });						
-                    }
-                });
-                
-                function habitSelected(e) {			
-                    NEW_HABIT_ID = $(e.currentTarget).data("habit-id");
-                    if (DEBUG) console.log("new habit id = " + NEW_HABIT_ID);
-										
-                    if (USER_ID > 0 && NEW_HABIT_ID > 0) 
-					{
-						 $.ajax({
-                          type: "POST",
-                          url: API_BASE_URL + 'habits.php?method=create_user_habit',
-                          data: {
-                              userId: USER_ID,
-                              habitId: NEW_HABIT_ID
-                              },
-                          dataType: "json",
-                          success: function(data) {
-        					if (DEBUG) console.debug(data);
-                            if (data.Success)
-							{
-								$("#divHabitCreateResult").html("Your habit was created!<br />Congratulations on taking that first step.");
-							}
-							else
-							{
-								$("#divHabitCreateResult").html("There was a problem creating this habit...");
-							}
-                            $("#dialogHabitCreated").dialog();
-							$("#lnkNewHabitDialog").click();
-							
-							$('#dialogHabitCreated').off('pagehide').on('pagehide',function(event) {
-								$.mobile.changePage("#pageMyHabits", { transition: "slideup"});
-							});
-                          }
-                        });		
-					}
-                }		
-            </script>
-        
-            <div data-role="header" data-theme="a">
-                <div class="center" style="width: 253px;">
-                    <img src="images/Habitude_title.png" align="center" class="center" style="width: 253px;" />
-                </div>
-            </div><!-- /header -->
-            
-            <div data-role="content">	
-                <div data-swatch="b" class="ui-li ui-li-divider ui-btn ui-bar-b ui-corner-top ui-corner-bottom ui-btn-up-undefined speech">Choose a Habit</div>
-                <div id="divHabits" data-role="fieldcontain"></div>
-                
-                <a id='lnkNewHabitDialog' href="#dialogHabitCreated" data-rel="dialog" data-transition="pop" style='display:none;'></a>                       
-            </div><!-- /content -->
-        
-        	<div data-role="footer" data-position="fixed" data-theme="c">
-            	<a data-rel="back" data-theme="b" data-role="button" data-mini="true" data-icon="arrow-l">Back</a>
-            </div>
-        
-        </div><!-- /page -->
-
-		<!-- HABIT CREATED DIALOG -->
-        <div data-role="page" id="dialogHabitCreated">
-          <div data-role="header">
-            <h1>Create Habit</h1>
-          </div>    
-          <div data-role="content" id="divHabitCreateResult">
-          </div>    
-        </div>
-
-        <div data-role="page" data-rel="dialog" id="notImplemented">
-            <div data-role="content">
-                NOT YET IMPLEMENTED
-            </div>
-        </div>
-            
     </body>
 </html>
