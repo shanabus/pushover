@@ -22,7 +22,10 @@
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
 	<preference name="splash-screen-duration" value="100" />
-	<preference name="permissions" value="none"/>
+	
+	<!-- <preference name="permissions" value="none"/> -->
+	
+	<feature name="http://api.phonegap.com/1.0/notification"/>
 	
 	<!-- Android only -->
 	<preference name="android-installLocation" value="auto" />
@@ -55,10 +58,10 @@
 	
 	<gap:plugin name="GenericPush" />
 	
-	<plugin name="PushPlugin" value="com.plugin.GCM.PushPlugin" />
+	<gap:plugin name="PushPlugin" value="com.plugin.GCM.PushPlugin" />
 	
 	<!-- alert/confirm/vibrate/beep notifications -->
-	<plugin name="Notification" value="org.apache.cordova.Notification"/>
+	<gap:plugin name="Notification" value="org.apache.cordova.Notification"/>
 	
 	<access origin="*" />
 
