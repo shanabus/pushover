@@ -20,7 +20,8 @@
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
 	<preference name="splash-screen-duration" value="100" />
-
+	<preference name="permissions" value="none"/>
+	
     <icon src="icon.png" />
     <!--<icon src="res/icon/android/icon-36-ldpi.png"   gap:platform="android"    gap:density="ldpi" />
     <icon src="res/icon/android/icon-48-mdpi.png"   gap:platform="android"    gap:density="mdpi" />
@@ -48,7 +49,8 @@
     <gap:splash src="res/screen/windows-phone/screen-portrait.jpg" gap:platform="winphone" />-->
 	
 	<gap:plugin name="GenericPush" />
-	<plugin name="Notification" value="org.apache.cordova.Notification"/>
+	<plugin name="PushPlugin" value="com.plugin.GCM.PushPlugin" />
+	<!-- <plugin name="Notification" value="org.apache.cordova.Notification"/> -->
 	
 	<access origin="*" />
 
