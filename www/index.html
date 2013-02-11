@@ -27,11 +27,21 @@
 				navigator.notification.vibrate(2000);
 				
 				// https://github.com/phonegap-build/PushPlugin/blob/master/README.md
-				//pushNotification = window.plugins.pushNotification;
+				try {
+					pushNotification = window.plugins.pushNotification;
+					$("#divPushResults").html("<strong>Did not die yet!</strong>");
+				} 
+				catch (err)
+				{
+					$("#divPushResults").html("<p>Died with error: " + err + "</p>");
+				}
 				
-				//if (device.platform == 'android' || device.platform == 'Android') {
-				//	pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
-				//} else {
+				if (device.platform == 'android' || device.platform == 'Android') {
+					$("#divPushResults").append("<p>and its an android</p>");
+					//pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
+				} 
+				//else 
+				//{
 				//	pushNotification.register(tokenHandler, errorHandler {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
 				//}
 			}
@@ -65,7 +75,9 @@
                 <div data-role="fieldcontain">
                     Push Over sends push notifications to Phonegap app (like this one)
                 </div>
-                
+                <div id="divPushResults">
+					Waiting...
+				</div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->    	       
