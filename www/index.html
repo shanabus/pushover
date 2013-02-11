@@ -38,7 +38,15 @@
 				
 				if (device.platform == 'android' || device.platform == 'Android') {
 					$("#divPushResults").append("<p>and its an android</p>");
-					//pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
+					
+					try
+					{
+						pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
+					}
+					catch (err)
+					{
+						$("#divPushResults").append("<p>Died with error: " + err + "</p>");
+					}
 				} 
 				//else 
 				//{
