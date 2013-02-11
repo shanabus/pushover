@@ -24,7 +24,7 @@
 			
 			function onDeviceReady()
 			{
-				navigator.notification.vibrate(2000);
+				//navigator.notification.vibrate(2000);
 				
 				// https://github.com/phonegap-build/PushPlugin/blob/master/README.md
 				try {
@@ -36,10 +36,10 @@
 					$("#divPushResults").html("<p>Died with error: </p>");
 				}
 				
-				//if (device.platform == 'android' || device.platform == 'Android') {
-				//	$("#divPushResults").append("<p>and its an android</p>");
+				if (device.platform == 'android' || device.platform == 'Android') {
+					$("#divPushResults").append("<p>and its an android</p>");
 					//pushNotification.register(successHandler, errorHandler,{"senderID":"263011189036","ecb":"onNotificationGCM"});
-				//} 
+				} 
 				//else 
 				//{
 				//	pushNotification.register(tokenHandler, errorHandler {"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
