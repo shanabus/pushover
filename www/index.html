@@ -82,7 +82,7 @@
 						// you might want to play a sound to get the user's attention, throw up a dialog, etc.
 						if (e.foreground)
 						{
-							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + e.payload.message '</li>');
+							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + e.payload.message + '</li>');
 
 							// if the notification contains a soundname, play it.
 							//var my_media = new Media("/android_asset/www/"+e.soundname);
@@ -147,8 +147,13 @@
                 <div id="divPushResults">
 					Waiting...
 				</div>
-				<ul id="app-status-ul">					
-				</ul>
+				<div id="home">
+					<div id="app-status-div">
+						<ul id="app-status-ul">
+							<li>Cordova PushNotification Plugin Demo</li>
+						</ul>
+					</div>
+				</div>
 			</div><!-- /content -->
 
 		</div><!-- /page -->    	       
