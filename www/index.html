@@ -62,6 +62,68 @@
 			function errorHandler (error) {
 				alert('error = '+error)
 			}
+			
+			// Android
+			function onNotificationGCM(e) {
+				switch( e.event )
+				{
+					case 'registered':
+						if ( e.regid.length > 0 )
+						{
+							// Your GCM push server needs to know the regID before it can push to this device
+							// here is where you might want to send it the regID for later use.
+							alert('registration id = ' + e.regid);
+							registerDevice(e.regid);
+						}
+					break;
+
+					case 'message':
+						// if this flag is set, this notification happened while we were in the foreground.
+						// you might want to play a sound to get the user's attention, throw up a dialog, etc.
+						if (e.foreground)
+						{
+							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+
+							// if the notification contains a soundname, play it.
+							//var my_media = new Media("/android_asset/www/"+e.soundname);
+							//my_media.play();
+							alert("play sound!");
+						}
+						else    // otherwise we were launched because the user touched a notification in the notification tray.
+						{
+							$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
+						}
+						
+						$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
+						$("#app-status-ul").append('<li>MESSAGE -> MSGCNT: ' + e.payload.msgcnt + '</li>');
+					break;
+
+					case 'error':
+						alert('GCM error = ' + e.msg);
+					break;
+
+					default:
+						alert('An unknown GCM event has occurred');
+					break;
+				}
+			}
+			
+			function registerDevice(regid) {
+				$.ajax({
+					type: "POST",
+					url: 'http://www.grappsmobile.com/gcm/register.php',
+					data: {
+						email: 'shane@mediadezine.com', 
+						name: 'shane',
+						regId: regid
+					  },
+				  dataType: "json",
+				  success: function(data) {
+					alert(data);
+					$("#divPushResults").append("<br />" + data);
+				  }
+				});		
+			}
 		</script>
     </head>
     <body>
@@ -84,6 +146,8 @@
                 <div id="divPushResults">
 					Waiting...
 				</div>
+				<ul id="app-status-ul">					
+				</ul>
 			</div><!-- /content -->
 
 		</div><!-- /page -->    	       
