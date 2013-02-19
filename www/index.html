@@ -85,7 +85,7 @@
 						// you might want to play a sound to get the user's attention, throw up a dialog, etc.
 						if (e.foreground)
 						{
-							$("#app-status-ul").append('<li>--INLINE NOTIFICATION--' + '</li>');
+							$("#app-status-ul").append('<li>--INLINE NOTIFICATION: ' + e.message + '</li>');
 
 							// if the notification contains a soundname, play it.
 							//var my_media = new Media("/android_asset/www/"+e.soundname);
@@ -94,9 +94,9 @@
 						}
 						else    // otherwise we were launched because the user touched a notification in the notification tray.
 						{
-							$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION--' + '</li>');
-							$("#app-status-ul").append('<li>--NOTIFICATION MESSAGE--' + e.message + '</li>');
-							window.plugins.statusBarNotification.notify("Push Over Message", e.message);
+							$("#app-status-ul").append('<li>--BACKGROUND NOTIFICATION: ' + e.message + '</li>');
+							
+							//window.plugins.statusBarNotification.notify("Push Over Message", e.message);
 						}
 						
 						$("#app-status-ul").append('<li>MESSAGE -> MSG: ' + e.payload.message + '</li>');
